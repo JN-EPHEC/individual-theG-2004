@@ -12,7 +12,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.listen(port, () => {
     console.log('Bienvenue sur mon serveur API')
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Serveur lancé !! :  http://localhost:${port}`);
 });
 
 function greet(name:string): string {
