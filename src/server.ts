@@ -2,6 +2,7 @@
 // Posted by Shaun Luttin
 // Retrieved 2026-02-10, License - CC BY-SA 4.0
 import express, { type Request, type Response } from "express";
+import { userRoutes } from './routes/userRoutes.js';
 
 const app = express();
 const port = 3000; // le port 
@@ -41,6 +42,8 @@ app.listen(port, () => { // callBack dans ma console pour indiquer le status, je
     console.log('Bienvenue sur mon serveur API')
     console.log(`Serveur lancé !! :  http://localhost:${port}`);
 });
+
+app.use(userRoutes);
 
 // Exemple de fonction simple pour tester le fonctionnement de TypeScript
 function greet(nom:string): string {
