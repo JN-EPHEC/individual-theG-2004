@@ -3,6 +3,7 @@
 // Retrieved 2026-02-10, License - CC BY-SA 4.0
 import express, { type Request, type Response } from "express";
 import { userRoutes } from './routes/userRoutes.js';
+import sequelize from './config/database.js';
 
 const app = express();
 const port = 3000; // le port 
@@ -38,15 +39,26 @@ app.get('/api/hello/:name', (req: Request, res: Response) => { // route pour dir
     });
 });
 
-app.listen(port, () => { // callBack dans ma console pour indiquer le status, je devrais faire un try except pour gerer les erreurs inatendues
-    console.log('Bienvenue sur mon serveur API')
-    console.log(`Serveur lancé !! :  http://localhost:${port}`);
-});
+
+async function testDatabaseConnection() { // fonction pour tester la connexion à la base de données
+    try {
+        await sequelize.authenticate(); // on essaie de se connecter à la base de données
+        console.log('Connexion à la base de données réussie.');
+
+        app.listen(port, () => { // callBack dans ma console pour indiquer le status, je devrais faire un try except pour gerer les erreurs inatendues
+            console.log(`Serveur lancé !! :  http://localhost:${port}`);
+        });
+    } catch (error) {
+        console.error('Impossible de se connecter à la base de données :', error);
+    }
+}
+
+testDatabaseConnection(); // on appelle la fonction pour tester la connexion à la base de données
 
 app.use(userRoutes);
 
-// Exemple de fonction simple pour tester le fonctionnement de TypeScript
+/* // Exemple de fonction simple pour tester le fonctionnement de TypeScript
 function greet(nom:string): string {
     return `Hello, ${nom}! de BAC 2`;
 }
-console.log(greet("Gaspard"));
+console.log(greet("Gaspard")); */
