@@ -43,7 +43,7 @@ app.get('/api/hello/:name', (req: Request, res: Response) => { // route pour dir
 async function testDatabaseConnection() { // fonction pour tester la connexion à la base de données
     try {
         await sequelize.authenticate(); // on essaie de se connecter à la base de données
-        console.log('Connexion à la base de données réussie.');
+        console.log('Connexion à     la base de données réussie.');
 
         app.listen(port, () => { // callBack dans ma console pour indiquer le status, je devrais faire un try except pour gerer les erreurs inatendues
             console.log(`Serveur lancé !! :  http://localhost:${port}`);
