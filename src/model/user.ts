@@ -1,13 +1,11 @@
-// On remplace le require par un import
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database.js'; // Importe ton instance de connexion
+import sequelize from '../config/database.js';
+class User extends Model {} // Définition du modèle User en étendant la classe Model de Sequelize
 
-class User extends Model {}
-
-User.init(
+User.init(  // Initialisation du modèle avec les champs et les options
   {
     nom: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
       allowNull: false,
     },
     prenom: {
@@ -16,9 +14,9 @@ User.init(
     },
   },
   {
-    sequelize, // On utilise l'instance importée
+    sequelize, // passe l'instance de connexion à Sequelize
     modelName: 'User',
   },
 );
 
-export default User; // N'oublie pas d'exporter pour que server.ts puisse le lire
+export default User; // Exporte le modèle pour l'utiliser dans d'autres parties de ton application
