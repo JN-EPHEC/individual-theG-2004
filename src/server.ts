@@ -1,6 +1,8 @@
 // Source - https://stackoverflow.com/q/55029813
 // Posted by Shaun Luttin
 // Retrieved 2026-02-10, License - CC BY-SA 4.0
+
+import './model/user.js'; // Importation du modèle User pour s'assurer que la table est créée dans la base de données
 import express, { type Request, type Response } from "express";
 import { userRoutes } from './routes/userRoutes.js';
 import sequelize from './config/database.js';
@@ -44,6 +46,7 @@ async function testDatabaseConnection() { // fonction pour tester la connexion �
     try {
         await sequelize.authenticate(); // on essaie de se connecter à la base de données
         console.log('Connexion à la base de données réussie.');
+
         await sequelize.sync({ force: true });
         console.log('La base de données a été synchronisée avec succès.');
 
