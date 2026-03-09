@@ -1,26 +1,24 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+// On remplace le require par un import
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import sequelize from '../config/database.js'; // Importe ton instance de connexion
 
 class User extends Model {}
 
 User.init(
   {
-    // Model attributes are defined here
-    prenom : {
+    nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    nom : {
+    prenom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'User', // We need to choose the model name
+    sequelize, // On utilise l'instance importée
+    modelName: 'User',
   },
 );
 
-// the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+export default User; // N'oublie pas d'exporter pour que server.ts puisse le lire
