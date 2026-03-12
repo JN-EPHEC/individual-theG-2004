@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { DataTypes } from "sequelize";   
+  
 
 // const sequelize = new Sequelize('sqlite::memory:');
 const sequelize = new Sequelize({
@@ -9,4 +9,3 @@ const sequelize = new Sequelize({
 });
 
 export default sequelize;
-export { DataTypes };
