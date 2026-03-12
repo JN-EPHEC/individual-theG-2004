@@ -6,8 +6,13 @@ import './model/user.js'; // Importation du modèle User pour s'assurer que la t
 import express, { type Request, type Response } from "express";
 import { userRoutes } from './routes/userRoutes.js';
 import sequelize from './config/database.js';
+import e from 'express';
 
 const app = express();
+app.use(express.json()); // Middleware pour parser les requêtes JSON
+app.use('/', userRoutes); // Utilisation des routes définies dans userRoutes.ts
+
+
 const port = 3000; // le port 
 
 interface Etudiant { // interface pour définir la structure d'un objet étudiant
