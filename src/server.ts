@@ -60,7 +60,7 @@ async function testDatabaseConnection() { // fonction pour tester la connexion �
         await sequelize.authenticate(); // on essaie de se connecter à la base de données
         console.log('Connexion à la base de données réussie.');
 
-        await sequelize.sync({ force: true });
+        await sequelize.sync({ alter: true });
         console.log('La base de données a été synchronisée avec succès.');
 
         app.listen(port, () => { // callBack dans ma console pour indiquer le status, je devrais faire un try except pour gerer les erreurs inatendues
