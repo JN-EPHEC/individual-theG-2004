@@ -1,7 +1,13 @@
 import { type Request, type Response, type NextFunction } from 'express';
 
-export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    
+
+export const errorHandler = (
+    err: any,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+
     // On récupère le statut et le message
     const status = err.status || 500;
     const message = err.message || "Une erreur interne est survenue sur le serveur.";
@@ -21,4 +27,5 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
         error: message,
         status: status
     });
+
 };
