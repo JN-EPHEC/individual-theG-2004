@@ -4,6 +4,7 @@ import * as userController from "../controllers/userController.js";
 
 const router = express.Router();
 
+// Différentes routes pour pouvoir utiliser les mothodes 
 router.get('/api/users', userController.getAllUsers);
 router.post('/api/users', userController.postUsers);
 router.delete('/api/users/:id', userController.delUsers)
