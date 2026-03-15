@@ -26,11 +26,11 @@ interface Etudiant { // interface pour définir la structure d'un objet étudian
     prenom: string;
 }
 
-const etudiants : Etudiant[] = [
+/* const etudiants : Etudiant[] = [
 { id: 1, nom: "Dupont", prenom: "Jean" },
 { id: 2, nom: "Martin", prenom: "Sophie" },
 { id: 3, nom: "Doe", prenom: "John" },
-];
+]; */
 
 const name = { "message": "Bonjour Yves", "timestamp":"2026-01-29T12:00:19.821Z" } // exemple de données pour tester l'API
 
@@ -41,9 +41,9 @@ app.get('/', (req: Request, res: Response) => { // Route par défaut du serveur 
 });
 
 
-app.get('/api/data', (req: Request, res: Response) => { // route pour récupérer les données des étudiants c'est la route qui donne les data des API
+/* app.get('/api/data', (req: Request, res: Response) => { // route pour récupérer les données des étudiants c'est la route qui donne les data des API
     res.json(etudiants); // permet de changer les données en format JSON afin que le typeScript puisse les comprendre et les utiliser facilement
-});
+}); */
 
 
 app.get('/api/hello/:name', (req: Request, res: Response) => { // route pour dire bonjour à une personne en particulier, le ":name" est un paramètre dynamique qui peut être remplacé par n'importe quel nom
