@@ -12,6 +12,8 @@ import { requestLogger } from "./middlewares/logger.js";
 import { errorHandler } from './middlewares/errorHandler.js';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
+import cors from 'cors';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +21,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(cors());
 app.use(requestLogger);
 app.use(express.json()); // Middleware pour parser les requêtes JSON
 app.use('/', userRoutes); // Utilisation des routes définies dans userRoutes.ts
