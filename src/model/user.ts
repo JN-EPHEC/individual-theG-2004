@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database.js';
-class User extends Model {} // Définition du modèle User en étendant la classe Model de Sequelize
+class User extends Model {}; // Définition du modèle User en étendant la classe Model de Sequelize
 
 User.init(  // Initialisation du modèle avec les champs et les options
   {

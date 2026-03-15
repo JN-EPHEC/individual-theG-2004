@@ -19,7 +19,7 @@ async function fetchUsers() {
     } catch (error) {
         console.log(error.message);
     }
-}
+};
 
 function listeDB(resultat){
     const list = document.getElementById("userList");
@@ -27,10 +27,10 @@ function listeDB(resultat){
 
     htmlContent = "" //on vide la liste 
     resultat.forEach(function(key){
-        htmlContent += `<li class="list-group-item">${key.nom} ${key.prenom}</li>` // on construit la liste 
+        htmlContent += `<li class="list-group-item">${key.nom} ${key.prenom}</li>`; // on construit la liste 
     });
-    list.innerHTML = htmlContent // on l'injecte dynamiquement dans le jS   
-}
+    list.innerHTML = htmlContent; // on l'injecte dynamiquement dans le jS   
+};
 
 async function addUser() {
     const INPUT_NOM = document.getElementById("nom");
@@ -58,4 +58,4 @@ async function addUser() {
     } catch (error) {
         console.error("Erreur lors du POST :    ", error);
     }
-}
+};

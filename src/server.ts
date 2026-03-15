@@ -83,7 +83,7 @@ async function testDatabaseConnection() {
     } catch (error) {
         console.error('Impossible de se connecter à la base de données :', error);
     }
-}
+};
 
 testDatabaseConnection(); // on appelle la fonction pour tester la connexion à la base de données
 
