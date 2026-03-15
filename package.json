@@ -19,6 +19,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "express": "^5.2.1",
     "pg": "^8.20.0",
     "pg-hstore": "^2.3.4",
