@@ -8,13 +8,14 @@ import { userRoutes } from './routes/userRoutes.js';
 import sequelize from './config/database.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import e from 'express';
+import { requestLogger } from "./middlewares/logger.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
 const app = express();
+app.use(requestLogger);
 app.use(express.json()); // Middleware pour parser les requêtes JSON
 app.use('/', userRoutes); // Utilisation des routes définies dans userRoutes.ts
 
