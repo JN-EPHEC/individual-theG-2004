@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from "express";
 import User from "../model/user.js"; // ton modèle Sequelize
 import * as userController from "../controllers/userController.js";
+import { checkIdParam } from "../middlewares/checkIdParam.js";  
 
 
 const router = express.Router();
@@ -71,7 +72,10 @@ router.post('/api/users', userController.postUsers);
  *                       500:
  *                           description: Erreur serveur
  */
-router.delete('/api/users/:id', userController.delUsers);
+router.delete('/api/users/:id', checkIdParam, userController.delUsers);
 
+
+router.get('/api/users/:id', checkIdParam, userController.getUserById);
+router.put('/api/users/:id', checkIdParam, userController.updateUser);
 
 export { router as userRoutes };

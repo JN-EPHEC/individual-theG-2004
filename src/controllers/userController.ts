@@ -77,3 +77,50 @@ export const delUsers = async (
     }
 
 };
+
+
+// methode : GET par ID
+export const getUserById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+
+        const user = await User.findByPk(req.params.id as string); // 👈 as string
+
+        if (!user) {
+            res.status(404).json({ error: 'Utilisateur non trouvé' });
+            return;
+        }
+
+        res.json(user);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+// methode : PUT (mise à jour)
+export const updateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+
+        const user = await User.findByPk(req.params.id as string); // 👈 as string
+
+        if (!user) {
+            res.status(404).json({ error: 'Utilisateur non trouvé' });
+            return;
+        }
+
+        await user.update(req.body);
+        res.json(user);
+
+    } catch (error) {
+        next(error);
+    }
+};
