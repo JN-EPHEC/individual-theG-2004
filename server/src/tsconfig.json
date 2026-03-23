@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": ".",              // ← tsconfig est dans server/src/, donc "." suffit
+    "rootDir": ".",             
     "outDir": "./dist",
 
     "module": "NodeNext",
@@ -23,5 +23,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["./**/*"]         // ← corrigé : tout ce qui est dans server/src/
+  "include": ["./**/*"]        
 }
