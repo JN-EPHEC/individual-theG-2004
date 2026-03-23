@@ -66,7 +66,7 @@ console.log(greet("Gaspard")); */
 
 
 // Middleware pour servir les fichiers statiques depuis le dossier "public"
-app.use(express.static(path.join(__dirname, '../../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Route par défaut du serveur (racine "/")
 app.get('/', (req: Request, res: Response) => { 

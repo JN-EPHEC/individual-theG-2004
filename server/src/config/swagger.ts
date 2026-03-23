@@ -14,7 +14,7 @@ const swaggerOptions = {
     },
 
     // Chemin vers les fichiers contenant les annotations
-    apis: ["./routes/*.ts"],
+    apis: ["./src/routes/*.ts"],
 
 };
 
