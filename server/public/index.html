@@ -1,79 +1,391 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Registre Étudiants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-        crossorigin="anonymous"
-    >
+    :root {
+      --bg: #f4f1eb;
+      --surface: #ffffff;
+      --border: #e2ddd4;
+      --text: #1a1814;
+      --muted: #9a9186;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+      --danger: #c0392b;
+      --danger-light: #fdf0ef;
+    }
 
-    <script src="script.js"></script>
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-    <title>API Étudiants</title>
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: var(--accent);
+      padding: 40px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .sidebar-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .sidebar-logo span {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+
+    .nav-item.active {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    /* MAIN */
+    .main { padding: 48px 52px; overflow-y: auto; }
+
+    .page-header { margin-bottom: 40px; animation: fadeUp 0.5s ease both; }
+
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .page-subtitle { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; }
+
+    /* KPI */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .kpi-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+    }
+
+    .kpi-value.accent { color: var(--accent); }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+
+    .card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title { font-size: 13px; font-weight: 500; color: var(--text); }
+    .card-body { padding: 24px; }
+
+    /* FORM */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .field input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus { border-color: var(--accent); background: var(--surface); }
+    .field input::placeholder { color: #c5bfb5; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.1s;
+      height: 40px;
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* TABLE */
+    .table-wrap { animation: fadeUp 0.5s 0.2s ease both; }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg); }
+
+    tbody td { padding: 16px 20px; font-size: 14px; vertical-align: middle; }
+
+    .td-id { font-size: 12px; color: var(--muted); font-weight: 300; font-family: monospace; }
+
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-del {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-del:hover { border-color: var(--danger); color: var(--danger); background: var(--danger-light); }
+
+    /* NOTIF */
+    .notif {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      display: none;
+    }
+
+    .notif.success { background: var(--accent); color: #fff; }
+    .notif.error { background: var(--danger); color: #fff; }
+
+    .empty-state { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { height: auto; position: relative; padding: 24px; }
+      .main { padding: 24px; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <h1>Bienvenue</h1>
+<div class="layout">
 
-    <div class="container mt-5">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>Panneau Admin</span>
+      GestEtu
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="#">◈ &nbsp;Étudiants</a>
+      <a class="nav-item" href="/api-docs" target="_blank">◇ &nbsp;API Docs</a>
+    </nav>
+    <div class="sidebar-footer">v1.0 · Express + SQLite</div>
+  </aside>
 
-        <h2 class="mb-4">Liste des étudiants</h2>
+  <main class="main">
 
-        <section class="card p-4 mb-5 shadow-sm">
-
-            <form id="userForm">
-
-                <div class="row g-3">
-
-                    <div class="col-md-5">
-                        <input
-                            type="text"
-                            id="nom"
-                            class="form-control"
-                            placeholder="Nom"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-5">
-                        <input
-                            type="text"
-                            id="prenom"
-                            class="form-control"
-                            placeholder="Prénom"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">
-                            Ajouter
-                        </button>
-                    </div>
-
-                </div>
-
-            </form>
-
-        </section>
-
-        <section>
-
-            <h4>Liste des inscrits</h4>
-
-            <ul id="userList" class="list-group">
-            </ul>
-
-        </section>
-
+    <div class="page-header">
+      <h1 class="page-title">Gestion des<br>étudiants</h1>
+      <p class="page-subtitle">Vue administrative — accès complet</p>
     </div>
 
-</body>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Total inscrits</div>
+        <div class="kpi-value accent" id="kpi-total">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Dernier ID</div>
+        <div class="kpi-value" id="kpi-last">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Statut API</div>
+        <div class="kpi-value" id="kpi-status" style="font-size:1rem;margin-top:6px;">…</div>
+      </div>
+    </div>
 
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Ajouter un étudiant</span>
+      </div>
+      <div class="card-body">
+        <form id="userForm">
+          <div class="form-row">
+            <div class="field">
+              <label>Nom</label>
+              <input type="text" id="nom" placeholder="Dupont" required />
+            </div>
+            <div class="field">
+              <label>Prénom</label>
+              <input type="text" id="prenom" placeholder="Jean" required />
+            </div>
+            <button type="submit" class="btn-primary" id="btnAdd">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card table-wrap">
+      <div class="card-header">
+        <span class="card-title">Liste des inscrits</span>
+        <span id="count-badge" style="font-size:12px;color:var(--muted);"></span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Avatar</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="userList">
+          <tr><td colspan="5" class="empty-state">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<div id="notif" class="notif"></div>
+
+<!-- Le JS est dans script.js -->
+<script src="script.js"></script>
+</body>
 </html>
