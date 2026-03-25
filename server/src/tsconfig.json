@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "rootDir": ".",             
+    "rootDir": ".",           
     "outDir": "./dist",
+    "esModuleInterop": true,
 
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
     "target": "ES2022",
-    "types": ["node"],
+    "types": ["jest","node"],
 
     "sourceMap": true,
     "declaration": true,

@@ -145,4 +145,4 @@ router.put('/api/users/:id', checkIdParam, userController.updateUser);
 router.delete('/api/users/:id', checkIdParam, userController.delUsers);
 
 
-export { router as userRoutes };
+export { router as userRoutes };    
