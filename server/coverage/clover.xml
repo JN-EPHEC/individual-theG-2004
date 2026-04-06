@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1774404413049" clover="3.2.0">
-  <project timestamp="1774404413049" name="All files">
+<coverage generated="1774427080380" clover="3.2.0">
+  <project timestamp="1774427080380" name="All files">
     <metrics statements="44" coveredstatements="44" conditionals="58" coveredconditionals="58" methods="3" coveredmethods="3" elements="105" coveredelements="105" complexity="0" loc="44" ncloc="44" packages="1" files="3" classes="3"/>
     <file name="password.ts" path="C:\Users\gaspa\Documents\Ephec\Ephec - block 2 (2024-2025)\Dev3\dev3-backend-tp1\server\src\utils\password.ts">
       <metrics statements="16" coveredstatements="16" conditionals="25" coveredconditionals="25" methods="1" coveredmethods="1"/>
