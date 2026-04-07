@@ -21,7 +21,7 @@ function App() {
   };
 
   const fetchUsers = () => {
-    fetch("http://localhost:3000/api/users")
+    fetch(`${import.meta.env.VITE_API_URL}/users`)
       .then((res) => res.json())
       .then((data) => { setUsers(data); setLoading(false); })
       .catch(() => { showNotif("Erreur de connexion au serveur", "error"); setLoading(false); });
@@ -33,7 +33,7 @@ function App() {
     e.preventDefault();
     if (!nom.trim() || !prenom.trim()) return;
     setAdding(true);
-    fetch("http://localhost:3000/api/users", {
+    fetch(`${import.meta.env.VITE_API_URL}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom }),
@@ -53,7 +53,7 @@ function App() {
 
   const deleteUser = (id: number) => {
     setDeletingId(id);
-    fetch(`http://localhost:3000/api/users/${id}`, { method: "DELETE" })
+    fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, { method: "DELETE" })
       .then((res) => {
         if (res.ok) { fetchUsers(); showNotif("Étudiant supprimé", "success"); }
         else showNotif("Erreur lors de la suppression", "error");

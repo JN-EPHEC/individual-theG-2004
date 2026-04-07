@@ -1,1 +1,7 @@
 node_modules/
+server/config/config.json
+server/config/config.json
+server/database.sqlite
+server/coverage/
+client/.env.development
+client/.env.production
